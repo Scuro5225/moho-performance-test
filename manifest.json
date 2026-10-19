@@ -1,0 +1,253 @@
+{
+  "build": "2026-10-19-r2/13-exports/7-models/default-sampling/release/wasm-web",
+  "engine": "Defold 1.13.0 release wasm-web",
+  "levels": [
+    10,
+    25,
+    50,
+    100
+  ],
+  "assets": [
+    {
+      "id": "izzie_idle",
+      "name": "Character_Izzie_Idle_Animation_01",
+      "models": 14,
+      "scale": 450,
+      "model_type": "Izzie",
+      "bounds": {
+        "width": 1.164460590980855,
+        "height": 0.7671181106393175,
+        "cx": -0.22226082667391187,
+        "cy": -0.011145790581426979
+      }
+    },
+    {
+      "id": "rae_idle",
+      "name": "Character_Rae_Idle_Animation_01",
+      "models": 15,
+      "scale": 450,
+      "model_type": "Rae",
+      "bounds": {
+        "width": 1.717841471006945,
+        "height": 1.0271779311542697,
+        "cx": -0.17544437196771717,
+        "cy": -0.04351658327959457
+      }
+    },
+    {
+      "id": "quest_idle",
+      "name": "Character_Quest_Idle_Animation_01",
+      "models": 14,
+      "scale": 450,
+      "model_type": "Quest",
+      "bounds": {
+        "width": 1.451988390232918,
+        "height": 1.568624033913333,
+        "cx": 0.31284490146919236,
+        "cy": 0.1403810118802119
+      }
+    },
+    {
+      "id": "emby_catch",
+      "name": "06_EmbyBalloonCatch",
+      "models": 1,
+      "scale": 450,
+      "model_type": "Emby",
+      "bounds": {
+        "width": 0.478289947284933,
+        "height": 1.0005756766373612,
+        "cx": 0.002643349117424018,
+        "cy": -0.01167132865423487
+      }
+    },
+    {
+      "id": "swamp_bird",
+      "name": "SwampBird",
+      "models": 1,
+      "scale": 450,
+      "model_type": "Swamp bird",
+      "bounds": {
+        "width": 0.8737111118621886,
+        "height": 1.0347186342051353,
+        "cx": -0.0038028625284435846,
+        "cy": -0.05489452727129268
+      }
+    },
+    {
+      "id": "swamp_butterfly",
+      "name": "SwampButterfly_Animation",
+      "models": 1,
+      "scale": 450,
+      "model_type": "Swamp butterfly",
+      "bounds": {
+        "width": 0.9325429821277326,
+        "height": 0.8902786008400922,
+        "cx": 0.028602123662578027,
+        "cy": -0.008701769784753705
+      }
+    },
+    {
+      "id": "swamp_toad",
+      "name": "SwampToad",
+      "models": 1,
+      "scale": 450,
+      "model_type": "Swamp toad",
+      "bounds": {
+        "width": 1.0033979719778197,
+        "height": 1.0298703566664034,
+        "cx": -0.00399253115075987,
+        "cy": 0.017152965017707855
+      }
+    },
+    {
+      "id": "izzie_throw",
+      "name": "Character_Izzie_BalloonThrowAnimation_01",
+      "models": 1,
+      "scale": 450,
+      "model_type": "Izzie",
+      "bounds": {
+        "width": 0.7190382189161526,
+        "height": 0.6637163683313982,
+        "cx": -0.04584593701567116,
+        "cy": -0.02637913220986024
+      }
+    },
+    {
+      "id": "rae_throw",
+      "name": "Character_Rae_BalloonThrowAnimation_01",
+      "models": 2,
+      "scale": 450,
+      "model_type": "Rae",
+      "bounds": {
+        "width": 1.030515214764376,
+        "height": 0.8157143355240826,
+        "cx": -0.10631869931495253,
+        "cy": -0.05839865898083724
+      }
+    },
+    {
+      "id": "quest_throw",
+      "name": "Character_Quest_BalloonThrowAnimation_01",
+      "models": 1,
+      "scale": 450,
+      "model_type": "Quest",
+      "bounds": {
+        "width": 0.8304369258917125,
+        "height": 0.7108048635057307,
+        "cx": 0.024098487791211542,
+        "cy": -0.01400469379556421
+      }
+    },
+    {
+      "id": "izzie_pop",
+      "name": "Character_Izzie_BalloonPop_Animation_01",
+      "models": 14,
+      "scale": 450,
+      "model_type": "Izzie",
+      "bounds": {
+        "width": 1.4651452705452401,
+        "height": 1.665496935192365,
+        "cx": -0.2096080922433587,
+        "cy": -0.054462379529416904
+      }
+    },
+    {
+      "id": "rae_pop",
+      "name": "Character_Rae_BalloonPop_Animation_01",
+      "models": 15,
+      "scale": 450,
+      "model_type": "Rae",
+      "bounds": {
+        "width": 2.014910879979,
+        "height": 2.00744125751001,
+        "cx": -0.1819616402399924,
+        "cy": -0.09982072985098472
+      }
+    },
+    {
+      "id": "quest_pop",
+      "name": "Character_Quest_BalloonPop_Animation_01",
+      "models": 14,
+      "scale": 450,
+      "model_type": "Quest",
+      "bounds": {
+        "width": 1.3650731513979686,
+        "height": 1.4831550804779308,
+        "cx": 0.16691934494627703,
+        "cy": 0.15643890498219726
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": ".nojekyll",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "archive/archive_files.json",
+      "size": 443,
+      "sha256": "db1bdffd09123ef0c4d02a4e186792f223fa71183aa5d747527946cd8eb36be0"
+    },
+    {
+      "path": "archive/game0.arcd",
+      "size": 2097152,
+      "sha256": "1434c544dc8a38ae0c28a4aed8fd758f33e2e510c079a6a60b2ad91d13b5d9ec"
+    },
+    {
+      "path": "archive/game0.arci",
+      "size": 25968,
+      "sha256": "610f0faeedc985d6ef0fd3c7b1feffe4592ca4df77625cae7e226abcc2321258"
+    },
+    {
+      "path": "archive/game0.dmanifest",
+      "size": 28747,
+      "sha256": "aedf157b12d13bf13860a53a7ac2ae51cfc4d193fd85fe1a38304b46931adea8"
+    },
+    {
+      "path": "archive/game0.projectc",
+      "size": 5014,
+      "sha256": "13fd257c4135586db67da27dc09ae8025a918a20878baad8615c6852b9227652"
+    },
+    {
+      "path": "archive/game1.arcd",
+      "size": 2097152,
+      "sha256": "2d9a67f5e5046798aae4e66658dcb5a6a6bafe8374f114e2fab704a3189c70bb"
+    },
+    {
+      "path": "archive/game2.arcd",
+      "size": 685826,
+      "sha256": "10111b06040ad00253d73647cb89a312cf40249ec00eb652d71e9efa581a917d"
+    },
+    {
+      "path": "dmloader.js",
+      "size": 48655,
+      "sha256": "f40a00dedb308eb206e7ea04ae36792305234dff8417540d9c774eebb077f384"
+    },
+    {
+      "path": "game.html",
+      "size": 10714,
+      "sha256": "b4764f8516742156a47645dbce356d98b7e800fc36b339429e1a369cf16e5bd4"
+    },
+    {
+      "path": "index.html",
+      "size": 8042,
+      "sha256": "a0b68315b7bc72e576952a809ae6d25991a7ecdb6919b326f105d84106f874eb"
+    },
+    {
+      "path": "MohoStressTest.wasm",
+      "size": 2369043,
+      "sha256": "6e502daf49d90be348ed6009003bd9691bea68be551e30b013d2587099231c24"
+    },
+    {
+      "path": "MohoStressTest_wasm.js",
+      "size": 269897,
+      "sha256": "8b94b79a59b7a047768da2a251c13eba63bd3ebce4dab2cefc492ebdeefa4c1b"
+    },
+    {
+      "path": "README.md",
+      "size": 1866,
+      "sha256": "9d4e3766e080cc44a07560b628d8081231f5ed1cd716e816b09a2cde0250ccf1"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moho / Defold performance test</title>
+<link rel="icon" href="data:,">
+<style>
+body{margin:0;background:#17202b;color:#eef3f8;font:15px system-ui,sans-serif}
+main{max-width:1280px;margin:auto;padding:16px}
+h1{font-size:22px;margin:0 0 8px}
+p{margin:8px 0;color:#c3ceda;line-height:1.4}
+button,input{font:inherit;padding:9px 13px;border:1px solid #688099;border-radius:5px}
+button{background:#29445e;color:white;cursor:pointer}
+button:disabled{opacity:.5;cursor:default}
+button[aria-pressed=true]{background:#166f96;border-color:#8addff}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#f1f2e4}
+#metrics{font-variant-numeric:tabular-nums;font-size:17px;min-height:26px}
+#status{min-height:22px}
+table{border-collapse:collapse;width:100%;margin-top:12px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid #496071}
+.note{font-size:13px}
+#error{background:#7c2626;padding:12px;display:none;white-space:pre-wrap}
+input{background:#f4f6f9;min-width:260px;color:#17202b}
+</style>
+</head>
+<body><main>
+<h1>Moho / Defold performance test</h1>
+<p>Delivered kit, default animation sampling. Mixed artist characters and creatures.
+The grid scales to keep all instances on screen. Fixed 1280 x 720 render resolution.</p>
+<p id="asset-list"></p>
+<div class="controls" id="levels">
+<span>Animated instances:</span>
+<button data-count="10">10</button><button data-count="25">25</button>
+<button data-count="50">50</button><button data-count="100">100</button>
+<button id="benchmark">Run all levels (~1 minute)</button><button id="stop" disabled>Stop</button>
+</div>
+<div id="metrics">Loading engine...</div>
+<p id="status">Please keep this tab visible. Initial download/first load is not included in measurements.</p>
+<div id="error" role="alert"></div>
+<iframe id="game" title="Animated Defold stress scene" allow="autoplay; fullscreen"></iframe>
+<div class="controls">
+<label>Device/model: <input id="device" placeholder="e.g. laptop model / phone model"></label>
+<button id="download" disabled>Download results (.json)</button>
+</div>
+<table><thead><tr><th>Instances</th><th>Model components</th><th>Average FPS</th>
+<th>Mean frame ms</th><th>P95 frame ms</th><th>Worst frame ms</th></tr></thead><tbody id="results"></tbody></table>
+<p class="note">Frame intervals use wall-clock time between engine updates, including browser scheduling/vsync.
+This is not a GPU timer or native/mobile performance verdict. Fade layers can use extra Model components.
+Close other heavy apps and record your device. A hidden tab cancels the benchmark.
+Results stay in this browser until you download/share them; nothing is uploaded.</p>
+</main>
+<script>
+"use strict";
+let sequence = 1;
+let command = {seq: sequence, action: "load", count: 10};
+let latest = null;
+let previousResults = "";
+let lastTelemetry = performance.now();
+window.mohoGetCommand = () => JSON.stringify(command);
+window.mohoCommand = (action, extra = {}) => {
+    command = {seq: ++sequence, action, ...extra};
+    return sequence;
+};
+function showError(message) {
+    const node = document.getElementById("error");
+    node.style.display = "block";
+    node.textContent = message;
+}
+window.mohoError = message => {
+    showError(message);
+    document.getElementById("metrics").textContent = "Engine failed to start.";
+};
+window.mohoReceive = state => {
+    latest = state;
+    lastTelemetry = performance.now();
+    if (Array.isArray(state.asset_catalog)) {
+        const names = [...new Set(state.asset_catalog.map(asset => asset.model_type || asset.name))];
+        document.getElementById("asset-list").textContent =
+            `${names.length} model types / ${state.asset_catalog.length} animation exports: ${names.join(", ")}`;
+    }
+    const sample = state.sample;
+    document.getElementById("metrics").textContent =
+        `${state.ready}/${state.count} instances ready | ${state.models} Model components | ` +
+        (sample ? `${sample.fps.toFixed(1)} FPS | mean ${sample.mean_ms.toFixed(2)} ms | P95 ${sample.p95_ms.toFixed(2)} ms` : "Warming up...");
+    document.getElementById("status").textContent =
+        `${state.mode} / ${state.phase} | ` +
+        (state.phase === "measuring" ? `${state.elapsed.toFixed(1)} s at this load. ` : "") +
+        (state.warning || "Keep this tab visible. Mix: " + JSON.stringify(state.mix));
+    const running = state.mode === "benchmark";
+    document.getElementById("benchmark").disabled = running || state.phase === "starting";
+    document.getElementById("stop").disabled = !running;
+    document.querySelectorAll("[data-count]").forEach(button => {
+        button.disabled = running;
+        button.setAttribute("aria-pressed", String(Number(button.dataset.count) === state.count));
+    });
+    const results = Array.isArray(state.results) ? state.results : [];
+    const encoded = JSON.stringify(results);
+    if (encoded !== previousResults) {
+        const body = document.getElementById("results");
+        body.replaceChildren();
+        results.forEach(result => {
+            const row = document.createElement("tr");
+            [result.count, result.models, result.fps.toFixed(1), result.mean_ms.toFixed(2),
+             result.p95_ms.toFixed(2), result.worst_ms.toFixed(2)].forEach(value => {
+                const cell = document.createElement("td");
+                cell.textContent = value;
+                row.appendChild(cell);
+            });
+            body.appendChild(row);
+        });
+        previousResults = encoded;
+    }
+    document.getElementById("download").disabled = results.length === 0 || running;
+};
+window.mohoState = () => latest;
+document.querySelectorAll("[data-count]").forEach(button => {
+    button.addEventListener("click", () => window.mohoCommand("load", {count: Number(button.dataset.count)}));
+});
+document.getElementById("benchmark").addEventListener("click", () => window.mohoCommand("benchmark"));
+document.getElementById("stop").addEventListener("click", () => window.mohoCommand("cancel"));
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden && latest && latest.mode === "benchmark") {
+        window.mohoCommand("cancel", {reason: "Tab became hidden; partial results only."});
+    }
+});
+window.mohoReport = () => ({
+    schema: 1, date: new Date().toISOString(), build: latest && latest.build,
+    device: document.getElementById("device").value, browser: navigator.userAgent,
+    viewport: {width: innerWidth, height: innerHeight, devicePixelRatio},
+    canvas: (() => {
+        const canvas = document.getElementById("game").contentDocument.querySelector("canvas");
+        return canvas ? {width: canvas.width, height: canvas.height} : null;
+    })(),
+    status: latest && latest.mode, warning: latest && latest.warning,
+    warmup_seconds: 3, measurement_seconds: 10,
+    workload: latest && latest.workload,
+    assets: latest && latest.asset_catalog,
+    metrics: "Wall-clock engine-update intervals, not GPU-only timing.",
+    results: latest && latest.results
+});
+document.getElementById("download").addEventListener("click", () => {
+    const url = URL.createObjectURL(new Blob([JSON.stringify(window.mohoReport(), null, 2)], {type: "application/json"}));
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "moho-performance-results.json";
+    anchor.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+setInterval(() => {
+    if (performance.now() - lastTelemetry > 90000) {
+        showError("No engine telemetry for 90 seconds. Keep the tab visible and check WebGL support / browser errors.");
+    }
+}, 5000);
+document.getElementById("game").src = "game.html";
+</script>
+</body></html>
