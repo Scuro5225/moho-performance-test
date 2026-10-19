@@ -180,9 +180,29 @@
   ],
   "files": [
     {
+      "path": ".gitattributes",
+      "size": 9,
+      "sha256": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992"
+    },
+    {
       "path": ".nojekyll",
       "size": 0,
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "MohoStressTest.wasm",
+      "size": 2369043,
+      "sha256": "6e502daf49d90be348ed6009003bd9691bea68be551e30b013d2587099231c24"
+    },
+    {
+      "path": "MohoStressTest_wasm.js",
+      "size": 269897,
+      "sha256": "8b94b79a59b7a047768da2a251c13eba63bd3ebce4dab2cefc492ebdeefa4c1b"
+    },
+    {
+      "path": "README.md",
+      "size": 1866,
+      "sha256": "9d4e3766e080cc44a07560b628d8081231f5ed1cd716e816b09a2cde0250ccf1"
     },
     {
       "path": "archive/archive_files.json",
@@ -233,21 +253,6 @@
       "path": "index.html",
       "size": 8042,
       "sha256": "a0b68315b7bc72e576952a809ae6d25991a7ecdb6919b326f105d84106f874eb"
-    },
-    {
-      "path": "MohoStressTest.wasm",
-      "size": 2369043,
-      "sha256": "6e502daf49d90be348ed6009003bd9691bea68be551e30b013d2587099231c24"
-    },
-    {
-      "path": "MohoStressTest_wasm.js",
-      "size": 269897,
-      "sha256": "8b94b79a59b7a047768da2a251c13eba63bd3ebce4dab2cefc492ebdeefa4c1b"
-    },
-    {
-      "path": "README.md",
-      "size": 1866,
-      "sha256": "9d4e3766e080cc44a07560b628d8081231f5ed1cd716e816b09a2cde0250ccf1"
     }
   ]
 }
