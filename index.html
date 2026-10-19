@@ -17,12 +17,13 @@ button[aria-pressed=true]{background:#166f96;border-color:#8addff}
 .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
 iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#f1f2e4}
 #metrics{font-variant-numeric:tabular-nums;font-size:17px;min-height:26px}
-#status{min-height:22px}
+#status{min-height:22px;overflow-wrap:anywhere}
 table{border-collapse:collapse;width:100%;margin-top:12px}
 th,td{text-align:left;padding:8px;border-bottom:1px solid #496071}
 .note{font-size:13px}
 #error{background:#7c2626;padding:12px;display:none;white-space:pre-wrap}
 input{background:#f4f6f9;min-width:260px;color:#17202b}
+@media(max-width:600px){table{table-layout:fixed}th,td{padding:6px 3px;font-size:12px;overflow-wrap:anywhere}}
 </style>
 </head>
 <body><main>
